@@ -74,15 +74,13 @@ sessions/
 # addons/
 # custom_modules/
 
-# Excluir todo por defecto, luego incluir específicamente los módulos
-*
-
 # Incluir archivos importantes del repositorio
 !README.md
 !.gitignore
 
-# Incluir carpetas de módulos (descomenta las que uses)
+# Incluir carpetas de módulos
 !modules/
+!modules/**/
 
 # Incluir archivos Python de módulos específicos
 !modules/**/*.py

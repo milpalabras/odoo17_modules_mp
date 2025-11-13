@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Etiquetas de demo -->
+        <record id="tag_importante" model="modulo.prueba.tag">
+            <field name="name">Importante</field>
+            <field name="color">1</field>
+        </record>
+
+        <record id="tag_testing" model="modulo.prueba.tag">
+            <field name="name">Testing</field>
+            <field name="color">3</field>
+        </record>
+
+        <record id="tag_desarrollo" model="modulo.prueba.tag">
+            <field name="name">Desarrollo</field>
+            <field name="color">5</field>
+        </record>
+
+        <!-- Registros de demo -->
+        <record id="demo_record_1" model="modulo.prueba">
+            <field name="name">Primer Registro de Prueba</field>
+            <field name="description">Este es el primer registro de demostración del módulo de prueba. Sirve para verificar que todas las funcionalidades funcionan correctamente.</field>
+            <field name="priority">high</field>
+            <field name="progress">25.0</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('tag_importante'), ref('tag_testing')])]"/>
+        </record>
+
+        <record id="demo_record_2" model="modulo.prueba">
+            <field name="name">Segundo Registro</field>
+            <field name="description">Un segundo registro para mostrar la funcionalidad de lista y diferentes estados.</field>
+            <field name="priority">normal</field>
+            <field name="progress">75.0</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('tag_desarrollo')])]"/>
+        </record>
+
+        <record id="demo_record_3" model="modulo.prueba">
+            <field name="name">Registro Completado</field>
+            <field name="description">Este registro está marcado como completado al 100%.</field>
+            <field name="priority">low</field>
+            <field name="progress">100.0</field>
+            <field name="tag_ids" eval="[(6, 0, [ref('tag_testing'), ref('tag_desarrollo')])]"/>
+        </record>
+    </data>
+</odoo>

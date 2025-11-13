@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menú principal -->
+    <menuitem id="menu_modulo_prueba_main" 
+              name="Módulo Prueba" 
+              sequence="100" 
+              web_icon="modulo_prueba,static/description/icon.png"/>
+
+    <!-- Submenú -->
+    <menuitem id="menu_modulo_prueba_records" 
+              name="Registros" 
+              parent="menu_modulo_prueba_main" 
+              action="action_modulo_prueba" 
+              sequence="10"/>
+
+    <!-- Menú de configuración -->
+    <menuitem id="menu_modulo_prueba_config" 
+              name="Configuración" 
+              parent="menu_modulo_prueba_main" 
+              sequence="90"/>
+
+    <menuitem id="menu_modulo_prueba_tags" 
+              name="Etiquetas" 
+              parent="menu_modulo_prueba_config" 
+              action="action_modulo_prueba_tag" 
+              sequence="10"/>
+</odoo>

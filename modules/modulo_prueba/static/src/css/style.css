@@ -1,0 +1,25 @@
+/* Estilos personalizados para el Módulo de Prueba */
+.o_modulo_prueba {
+    background-color: #f8f9fa;
+}
+
+.o_modulo_prueba .o_form_view {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.o_modulo_prueba .o_field_widget.o_field_progressbar {
+    min-width: 120px;
+}
+
+.o_modulo_prueba .btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+.o_modulo_prueba .btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+}
