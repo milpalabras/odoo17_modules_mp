@@ -27,7 +27,7 @@
                             string="Marcar Completado" 
                             type="object" 
                             class="btn-primary"
-                            attrs="{'invisible': [('progress', '=', 100.0)]}"/>
+                            invisible="progress == 100.0"/>
                 </header>
                 <sheet>
                     <group>
