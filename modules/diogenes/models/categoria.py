@@ -7,6 +7,7 @@ class DiogenesCategoria(models.Model):
     _name = 'diogenes.categoria'
     _description = 'Categoría de Transacción'
     _order = 'nombre asc'
+    _rec_name = 'nombre'
 
     nombre = fields.Char(
         string='Nombre',
