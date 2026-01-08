@@ -46,12 +46,12 @@
                         <group>
                             <field name="tipo" widget="radio"/>
                             <field name="categoria_id"/>
+                            <field name="currency_id"/>
                             <field name="monto"/>
                         </group>
                         <group>
                             <field name="fecha"/>
                             <field name="user_id"/>
-                            <field name="currency_id" invisible="1"/>
                         </group>
                     </group>
                     <notebook>

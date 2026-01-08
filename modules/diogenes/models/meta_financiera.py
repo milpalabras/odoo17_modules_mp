@@ -29,27 +29,34 @@ class DiogenesMetaFinanciera(models.Model):
         help='Descripción detallada de la meta'
     )
     
-    monto_objetivo = fields.Float(
+    currency_id = fields.Many2one(
+        'res.currency',
+        string='Moneda',
+        default=lambda self: self.env.company.currency_id,
+        required=True
+    )
+    
+    monto_objetivo = fields.Monetary(
         string='Monto Objetivo',
         required=True,
-        digits=(16, 2),
+        currency_field='currency_id',
         tracking=True,
         help='Monto que se desea alcanzar'
     )
     
-    monto_actual = fields.Float(
+    monto_actual = fields.Monetary(
         string='Monto Actual',
-        digits=(16, 2),
+        currency_field='currency_id',
         default=0.0,
         tracking=True,
         help='Monto acumulado hasta el momento'
     )
     
-    monto_faltante = fields.Float(
+    monto_faltante = fields.Monetary(
         string='Monto Faltante',
         compute='_compute_monto_faltante',
         store=True,
-        digits=(16, 2)
+        currency_field='currency_id'
     )
     
     porcentaje_completado = fields.Float(

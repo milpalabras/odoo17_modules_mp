@@ -22,10 +22,17 @@ class DiogenesTransaccion(models.Model):
         ('gasto', 'Gasto')
     ], string='Tipo', required=True, default='gasto', tracking=True)
     
-    monto = fields.Float(
+    currency_id = fields.Many2one(
+        'res.currency',
+        string='Moneda',
+        default=lambda self: self.env.company.currency_id,
+        required=True
+    )
+    
+    monto = fields.Monetary(
         string='Monto',
         required=True,
-        digits=(16, 2),
+        currency_field='currency_id',
         tracking=True,
         help='Monto de la transacción'
     )
@@ -58,13 +65,6 @@ class DiogenesTransaccion(models.Model):
         'res.users',
         string='Usuario',
         default=lambda self: self.env.user,
-        required=True
-    )
-    
-    currency_id = fields.Many2one(
-        'res.currency',
-        string='Moneda',
-        default=lambda self: self.env.company.currency_id,
         required=True
     )
     

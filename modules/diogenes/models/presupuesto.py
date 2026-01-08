@@ -24,10 +24,17 @@ class DiogenesPresupuesto(models.Model):
         tracking=True
     )
     
-    monto_presupuestado = fields.Float(
+    currency_id = fields.Many2one(
+        'res.currency',
+        string='Moneda',
+        default=lambda self: self.env.company.currency_id,
+        required=True
+    )
+    
+    monto_presupuestado = fields.Monetary(
         string='Monto Presupuestado',
         required=True,
-        digits=(16, 2),
+        currency_field='currency_id',
         tracking=True,
         help='Monto máximo asignado para esta categoría'
     )
@@ -45,18 +52,18 @@ class DiogenesPresupuesto(models.Model):
         tracking=True
     )
     
-    monto_gastado = fields.Float(
+    monto_gastado = fields.Monetary(
         string='Monto Gastado',
         compute='_compute_monto_gastado',
         store=True,
-        digits=(16, 2)
+        currency_field='currency_id'
     )
     
-    monto_disponible = fields.Float(
+    monto_disponible = fields.Monetary(
         string='Monto Disponible',
         compute='_compute_monto_disponible',
         store=True,
-        digits=(16, 2)
+        currency_field='currency_id'
     )
     
     porcentaje_usado = fields.Float(

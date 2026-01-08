@@ -50,6 +50,7 @@
                     <group>
                         <group>
                             <field name="tipo"/>
+                            <field name="currency_id"/>
                             <field name="monto_objetivo"/>
                             <field name="monto_actual"/>
                             <field name="priority" widget="priority"/>
