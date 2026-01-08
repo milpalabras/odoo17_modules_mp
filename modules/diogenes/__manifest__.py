@@ -32,11 +32,11 @@
     'data': [
         'security/ir.model.access.csv',
         'data/categorias_default.xml',
-        'views/menu.xml',
         'views/transaccion_views.xml',
         'views/categoria_views.xml',
         'views/presupuesto_views.xml',
         'views/meta_financiera_views.xml',
+        'views/menu.xml',
     ],
     'demo': [],
     'installable': True,
