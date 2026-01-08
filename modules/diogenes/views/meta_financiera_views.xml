@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Tree -->
+    <record id="view_diogenes_meta_financiera_tree" model="ir.ui.view">
+        <field name="name">diogenes.meta.financiera.tree</field>
+        <field name="model">diogenes.meta.financiera</field>
+        <field name="arch" type="xml">
+            <tree string="Metas Financieras">
+                <field name="nombre"/>
+                <field name="tipo" widget="badge"/>
+                <field name="monto_objetivo"/>
+                <field name="monto_actual"/>
+                <field name="porcentaje_completado" widget="progressbar"/>
+                <field name="fecha_limite"/>
+                <field name="priority" widget="priority"/>
+                <field name="state" widget="badge" 
+                       decoration-success="state=='achieved'"
+                       decoration-info="state=='in_progress'"
+                       decoration-muted="state in ['draft','cancelled']"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Form -->
+    <record id="view_diogenes_meta_financiera_form" model="ir.ui.view">
+        <field name="name">diogenes.meta.financiera.form</field>
+        <field name="model">diogenes.meta.financiera</field>
+        <field name="arch" type="xml">
+            <form string="Meta Financiera">
+                <header>
+                    <button name="action_start" string="Iniciar" 
+                            type="object" states="draft" 
+                            class="oe_highlight"/>
+                    <button name="action_achieve" string="Marcar como Alcanzada" 
+                            type="object" states="in_progress" 
+                            class="oe_highlight"/>
+                    <button name="action_cancel" string="Cancelar" 
+                            type="object" states="draft,in_progress"/>
+                    <button name="action_draft" string="Volver a Borrador" 
+                            type="object" states="cancelled"/>
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="draft,in_progress,achieved"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="nombre" placeholder="Nombre de la meta..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tipo"/>
+                            <field name="monto_objetivo"/>
+                            <field name="monto_actual"/>
+                            <field name="priority" widget="priority"/>
+                        </group>
+                        <group>
+                            <field name="fecha_inicio"/>
+                            <field name="fecha_limite"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Progreso">
+                            <field name="monto_faltante"/>
+                            <field name="porcentaje_completado" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Descripción">
+                            <field name="descripcion" placeholder="Describe tu meta financiera..."/>
+                        </page>
+                        <page string="Notas">
+                            <field name="notas" placeholder="Notas adicionales..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista Kanban -->
+    <record id="view_diogenes_meta_financiera_kanban" model="ir.ui.view">
+        <field name="name">diogenes.meta.financiera.kanban</field>
+        <field name="model">diogenes.meta.financiera</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="nombre"/>
+                <field name="tipo"/>
+                <field name="monto_objetivo"/>
+                <field name="monto_actual"/>
+                <field name="porcentaje_completado"/>
+                <field name="state"/>
+                <field name="priority"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <div class="o_kanban_record_headings">
+                                    <strong class="o_kanban_record_title"><field name="nombre"/></strong>
+                                </div>
+                                <field name="priority" widget="priority"/>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <field name="tipo" widget="badge"/>
+                                <div class="mt-2">
+                                    <field name="porcentaje_completado" widget="progressbar"/>
+                                </div>
+                                <div class="mt-2">
+                                    <span>Actual: <field name="monto_actual"/></span><br/>
+                                    <span>Objetivo: <field name="monto_objetivo"/></span>
+                                </div>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left">
+                                    <field name="state" widget="badge"/>
+                                </div>
+                                <div class="oe_kanban_bottom_right">
+                                    <field name="fecha_limite" widget="date"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Vista Search -->
+    <record id="view_diogenes_meta_financiera_search" model="ir.ui.view">
+        <field name="name">diogenes.meta.financiera.search</field>
+        <field name="model">diogenes.meta.financiera</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Metas">
+                <field name="nombre"/>
+                <field name="tipo"/>
+                <filter string="En Progreso" name="in_progress" domain="[('state','=','in_progress')]"/>
+                <filter string="Alcanzadas" name="achieved" domain="[('state','=','achieved')]"/>
+                <separator/>
+                <filter string="Mis Metas" name="mis_metas" domain="[('user_id','=',uid)]"/>
+                <separator/>
+                <filter string="Prioridad Alta" name="high_priority" 
+                        domain="[('priority','in',['high','urgent'])]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Tipo" name="group_tipo" context="{'group_by':'tipo'}"/>
+                    <filter string="Estado" name="group_state" context="{'group_by':'state'}"/>
+                    <filter string="Prioridad" name="group_priority" context="{'group_by':'priority'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_diogenes_meta_financiera" model="ir.actions.act_window">
+        <field name="name">Metas Financieras</field>
+        <field name="res_model">diogenes.meta.financiera</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="context">{'search_default_in_progress': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                ¡Define tu primera meta financiera!
+            </p>
+            <p>
+                Establece objetivos claros de ahorro, inversión o reducción de deudas 
+                y haz seguimiento a tu progreso.
+            </p>
+        </field>
+    </record>
+
+</odoo>

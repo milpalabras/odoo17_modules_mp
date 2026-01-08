@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_diogenes_categoria_user,diogenes.categoria.user,model_diogenes_categoria,base.group_user,1,1,1,1
+access_diogenes_transaccion_user,diogenes.transaccion.user,model_diogenes_transaccion,base.group_user,1,1,1,1
+access_diogenes_presupuesto_user,diogenes.presupuesto.user,model_diogenes_presupuesto,base.group_user,1,1,1,1
+access_diogenes_meta_financiera_user,diogenes.meta.financiera.user,model_diogenes_meta_financiera,base.group_user,1,1,1,1

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menú raíz -->
+    <menuitem id="menu_diogenes_root"
+              name="Diógenes"
+              sequence="5"
+              web_icon="diogenes,static/description/icon.png"/>
+
+    <!-- Menú Finanzas -->
+    <menuitem id="menu_diogenes_finanzas"
+              name="Finanzas"
+              parent="menu_diogenes_root"
+              sequence="10"/>
+
+    <menuitem id="menu_diogenes_transacciones"
+              name="Transacciones"
+              parent="menu_diogenes_finanzas"
+              action="action_diogenes_transaccion"
+              sequence="10"/>
+
+    <menuitem id="menu_diogenes_categorias"
+              name="Categorías"
+              parent="menu_diogenes_finanzas"
+              action="action_diogenes_categoria"
+              sequence="20"/>
+
+    <!-- Menú Planificación -->
+    <menuitem id="menu_diogenes_planificacion"
+              name="Planificación"
+              parent="menu_diogenes_root"
+              sequence="20"/>
+
+    <menuitem id="menu_diogenes_presupuestos"
+              name="Presupuestos"
+              parent="menu_diogenes_planificacion"
+              action="action_diogenes_presupuesto"
+              sequence="10"/>
+
+    <menuitem id="menu_diogenes_metas"
+              name="Metas Financieras"
+              parent="menu_diogenes_planificacion"
+              action="action_diogenes_meta_financiera"
+              sequence="20"/>
+
+</odoo>

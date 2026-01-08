@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Categorías de Ingresos -->
+        <record id="categoria_salario" model="diogenes.categoria">
+            <field name="nombre">Salario</field>
+            <field name="codigo">ING_SALARIO</field>
+            <field name="tipo">ingreso</field>
+            <field name="color">10</field>
+            <field name="descripcion">Ingresos por trabajo fijo o empleo</field>
+        </record>
+
+        <record id="categoria_freelance" model="diogenes.categoria">
+            <field name="nombre">Freelance</field>
+            <field name="codigo">ING_FREELANCE</field>
+            <field name="tipo">ingreso</field>
+            <field name="color">3</field>
+            <field name="descripcion">Ingresos por trabajos independientes</field>
+        </record>
+
+        <record id="categoria_inversiones" model="diogenes.categoria">
+            <field name="nombre">Inversiones</field>
+            <field name="codigo">ING_INVERSIONES</field>
+            <field name="tipo">ingreso</field>
+            <field name="color">5</field>
+            <field name="descripcion">Rendimientos de inversiones</field>
+        </record>
+
+        <record id="categoria_otros_ingresos" model="diogenes.categoria">
+            <field name="nombre">Otros Ingresos</field>
+            <field name="codigo">ING_OTROS</field>
+            <field name="tipo">ingreso</field>
+            <field name="color">7</field>
+            <field name="descripcion">Otros ingresos no categorizados</field>
+        </record>
+
+        <!-- Categorías de Gastos -->
+        <record id="categoria_alimentacion" model="diogenes.categoria">
+            <field name="nombre">Alimentación</field>
+            <field name="codigo">GAS_ALIMENTACION</field>
+            <field name="tipo">gasto</field>
+            <field name="color">1</field>
+            <field name="descripcion">Gastos en comida y bebidas</field>
+        </record>
+
+        <record id="categoria_transporte" model="diogenes.categoria">
+            <field name="nombre">Transporte</field>
+            <field name="codigo">GAS_TRANSPORTE</field>
+            <field name="tipo">gasto</field>
+            <field name="color">4</field>
+            <field name="descripcion">Gastos en transporte y combustible</field>
+        </record>
+
+        <record id="categoria_vivienda" model="diogenes.categoria">
+            <field name="nombre">Vivienda</field>
+            <field name="codigo">GAS_VIVIENDA</field>
+            <field name="tipo">gasto</field>
+            <field name="color">2</field>
+            <field name="descripcion">Renta, hipoteca y mantenimiento del hogar</field>
+        </record>
+
+        <record id="categoria_servicios" model="diogenes.categoria">
+            <field name="nombre">Servicios</field>
+            <field name="codigo">GAS_SERVICIOS</field>
+            <field name="tipo">gasto</field>
+            <field name="color">6</field>
+            <field name="descripcion">Luz, agua, internet, teléfono, etc.</field>
+        </record>
+
+        <record id="categoria_salud" model="diogenes.categoria">
+            <field name="nombre">Salud</field>
+            <field name="codigo">GAS_SALUD</field>
+            <field name="tipo">gasto</field>
+            <field name="color">8</field>
+            <field name="descripcion">Gastos médicos y medicamentos</field>
+        </record>
+
+        <record id="categoria_entretenimiento" model="diogenes.categoria">
+            <field name="nombre">Entretenimiento</field>
+            <field name="codigo">GAS_ENTRETENIMIENTO</field>
+            <field name="tipo">gasto</field>
+            <field name="color">9</field>
+            <field name="descripcion">Ocio, hobbies y entretenimiento</field>
+        </record>
+
+        <record id="categoria_educacion" model="diogenes.categoria">
+            <field name="nombre">Educación</field>
+            <field name="codigo">GAS_EDUCACION</field>
+            <field name="tipo">gasto</field>
+            <field name="color">11</field>
+            <field name="descripcion">Cursos, libros y material educativo</field>
+        </record>
+
+        <record id="categoria_otros_gastos" model="diogenes.categoria">
+            <field name="nombre">Otros Gastos</field>
+            <field name="codigo">GAS_OTROS</field>
+            <field name="tipo">gasto</field>
+            <field name="color">0</field>
+            <field name="descripcion">Otros gastos no categorizados</field>
+        </record>
+
+    </data>
+</odoo>

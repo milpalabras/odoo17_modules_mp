@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Tree -->
+    <record id="view_diogenes_presupuesto_tree" model="ir.ui.view">
+        <field name="name">diogenes.presupuesto.tree</field>
+        <field name="model">diogenes.presupuesto</field>
+        <field name="arch" type="xml">
+            <tree string="Presupuestos" 
+                  decoration-warning="porcentaje_usado &gt;= 80 and porcentaje_usado &lt; 100"
+                  decoration-danger="porcentaje_usado &gt;= 100">
+                <field name="nombre"/>
+                <field name="categoria_id"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_fin"/>
+                <field name="monto_presupuestado" sum="Total Presupuestado"/>
+                <field name="monto_gastado" sum="Total Gastado"/>
+                <field name="monto_disponible" sum="Total Disponible"/>
+                <field name="porcentaje_usado" widget="progressbar"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Form -->
+    <record id="view_diogenes_presupuesto_form" model="ir.ui.view">
+        <field name="name">diogenes.presupuesto.form</field>
+        <field name="model">diogenes.presupuesto</field>
+        <field name="arch" type="xml">
+            <form string="Presupuesto">
+                <sheet>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="nombre" placeholder="Nombre del presupuesto..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="categoria_id"/>
+                            <field name="monto_presupuestado"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="fecha_inicio"/>
+                            <field name="fecha_fin"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Seguimiento">
+                            <field name="monto_gastado"/>
+                            <field name="monto_disponible"/>
+                            <field name="porcentaje_usado" widget="progressbar"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="notas" placeholder="Notas adicionales..."/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista Search -->
+    <record id="view_diogenes_presupuesto_search" model="ir.ui.view">
+        <field name="name">diogenes.presupuesto.search</field>
+        <field name="model">diogenes.presupuesto</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Presupuestos">
+                <field name="nombre"/>
+                <field name="categoria_id"/>
+                <filter string="Activos" name="active" domain="[('active','=',True)]"/>
+                <filter string="Cerca del Límite" name="cerca_limite" 
+                        domain="[('porcentaje_usado','&gt;=',80),('porcentaje_usado','&lt;',100)]"/>
+                <filter string="Excedidos" name="excedidos" 
+                        domain="[('porcentaje_usado','&gt;=',100)]"/>
+                <separator/>
+                <filter string="Mis Presupuestos" name="mis_presupuestos" 
+                        domain="[('user_id','=',uid)]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Categoría" name="group_categoria" context="{'group_by':'categoria_id'}"/>
+                    <filter string="Mes" name="group_mes" context="{'group_by':'fecha_inicio'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_diogenes_presupuesto" model="ir.actions.act_window">
+        <field name="name">Presupuestos</field>
+        <field name="res_model">diogenes.presupuesto</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                ¡Define tu primer presupuesto!
+            </p>
+            <p>
+                Establece límites de gasto por categoría y mantén el control de tus finanzas.
+            </p>
+        </field>
+    </record>
+
+</odoo>

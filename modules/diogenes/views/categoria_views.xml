@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Tree -->
+    <record id="view_diogenes_categoria_tree" model="ir.ui.view">
+        <field name="name">diogenes.categoria.tree</field>
+        <field name="model">diogenes.categoria</field>
+        <field name="arch" type="xml">
+            <tree string="Categorías">
+                <field name="nombre"/>
+                <field name="codigo"/>
+                <field name="tipo" widget="badge"/>
+                <field name="transaccion_count"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Form -->
+    <record id="view_diogenes_categoria_form" model="ir.ui.view">
+        <field name="name">diogenes.categoria.form</field>
+        <field name="model">diogenes.categoria</field>
+        <field name="arch" type="xml">
+            <form string="Categoría">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_diogenes_transaccion)d" 
+                                type="action" 
+                                class="oe_stat_button" 
+                                icon="fa-list"
+                                context="{'search_default_categoria_id': active_id}">
+                            <field name="transaccion_count" widget="statinfo" string="Transacciones"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archivado" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="nombre" placeholder="Nombre de la categoría..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="codigo"/>
+                            <field name="tipo" widget="radio"/>
+                        </group>
+                        <group>
+                            <field name="color" widget="color"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="descripcion" placeholder="Descripción de la categoría..."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista Search -->
+    <record id="view_diogenes_categoria_search" model="ir.ui.view">
+        <field name="name">diogenes.categoria.search</field>
+        <field name="model">diogenes.categoria</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Categorías">
+                <field name="nombre"/>
+                <field name="codigo"/>
+                <filter string="Ingresos" name="ingresos" domain="[('tipo','in',['ingreso','ambos'])]"/>
+                <filter string="Gastos" name="gastos" domain="[('tipo','in',['gasto','ambos'])]"/>
+                <separator/>
+                <filter string="Activas" name="active" domain="[('active','=',True)]"/>
+                <filter string="Archivadas" name="inactive" domain="[('active','=',False)]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Tipo" name="group_tipo" context="{'group_by':'tipo'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_diogenes_categoria" model="ir.actions.act_window">
+        <field name="name">Categorías</field>
+        <field name="res_model">diogenes.categoria</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                ¡Crea tu primera categoría!
+            </p>
+            <p>
+                Las categorías te ayudan a organizar tus transacciones y entender 
+                mejor en qué gastas tu dinero.
+            </p>
+        </field>
+    </record>
+
+</odoo>

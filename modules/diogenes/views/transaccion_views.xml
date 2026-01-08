@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Vista Tree -->
+    <record id="view_diogenes_transaccion_tree" model="ir.ui.view">
+        <field name="name">diogenes.transaccion.tree</field>
+        <field name="model">diogenes.transaccion</field>
+        <field name="arch" type="xml">
+            <tree string="Transacciones" decoration-success="tipo=='ingreso'" decoration-danger="tipo=='gasto'">
+                <field name="fecha"/>
+                <field name="descripcion"/>
+                <field name="tipo" widget="badge"/>
+                <field name="categoria_id"/>
+                <field name="monto" sum="Total"/>
+                <field name="state" widget="badge" 
+                       decoration-success="state=='confirmed'"
+                       decoration-info="state=='draft'"
+                       decoration-muted="state=='cancelled'"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista Form -->
+    <record id="view_diogenes_transaccion_form" model="ir.ui.view">
+        <field name="name">diogenes.transaccion.form</field>
+        <field name="model">diogenes.transaccion</field>
+        <field name="arch" type="xml">
+            <form string="Transacción">
+                <header>
+                    <button name="action_confirm" string="Confirmar" 
+                            type="object" states="draft" 
+                            class="oe_highlight"/>
+                    <button name="action_cancel" string="Cancelar" 
+                            type="object" states="draft,confirmed"/>
+                    <button name="action_draft" string="Volver a Borrador" 
+                            type="object" states="cancelled"/>
+                    <field name="state" widget="statusbar" 
+                           statusbar_visible="draft,confirmed"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="descripcion" placeholder="Descripción de la transacción..."/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="tipo" widget="radio"/>
+                            <field name="categoria_id"/>
+                            <field name="monto"/>
+                        </group>
+                        <group>
+                            <field name="fecha"/>
+                            <field name="user_id"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Notas">
+                            <field name="notas" placeholder="Notas adicionales..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista Search -->
+    <record id="view_diogenes_transaccion_search" model="ir.ui.view">
+        <field name="name">diogenes.transaccion.search</field>
+        <field name="model">diogenes.transaccion</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Transacciones">
+                <field name="descripcion"/>
+                <field name="categoria_id"/>
+                <field name="fecha"/>
+                <filter string="Ingresos" name="ingresos" domain="[('tipo','=','ingreso')]"/>
+                <filter string="Gastos" name="gastos" domain="[('tipo','=','gasto')]"/>
+                <separator/>
+                <filter string="Borradores" name="draft" domain="[('state','=','draft')]"/>
+                <filter string="Confirmadas" name="confirmed" domain="[('state','=','confirmed')]"/>
+                <separator/>
+                <filter string="Este Mes" name="este_mes" 
+                        domain="[('fecha','&gt;=',datetime.datetime.now().strftime('%Y-%m-01'))]"/>
+                <filter string="Mis Transacciones" name="mis_transacciones" 
+                        domain="[('user_id','=',uid)]"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Tipo" name="group_tipo" context="{'group_by':'tipo'}"/>
+                    <filter string="Categoría" name="group_categoria" context="{'group_by':'categoria_id'}"/>
+                    <filter string="Fecha" name="group_fecha" context="{'group_by':'fecha'}"/>
+                    <filter string="Estado" name="group_state" context="{'group_by':'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Acción -->
+    <record id="action_diogenes_transaccion" model="ir.actions.act_window">
+        <field name="name">Transacciones</field>
+        <field name="res_model">diogenes.transaccion</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_confirmed': 1, 'search_default_este_mes': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                ¡Registra tu primera transacción!
+            </p>
+            <p>
+                Comienza a llevar el control de tus ingresos y gastos para alcanzar 
+                la libertad financiera.
+            </p>
+        </field>
+    </record>
+
+</odoo>
