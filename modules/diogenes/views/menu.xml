@@ -30,6 +30,12 @@
               action="action_diogenes_categoria"
               sequence="20"/>
 
+    <menuitem id="menu_diogenes_activos"
+              name="Activos"
+              parent="menu_diogenes_finanzas"
+              action="action_diogenes_activo"
+              sequence="30"/>
+
     <!-- Menú Planificación -->
     <menuitem id="menu_diogenes_planificacion"
               name="Planificación"

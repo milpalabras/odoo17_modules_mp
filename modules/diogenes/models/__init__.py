@@ -4,3 +4,4 @@ from . import cuenta
 from . import transaccion
 from . import presupuesto
 from . import meta_financiera
+from . import activo

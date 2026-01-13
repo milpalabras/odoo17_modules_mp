@@ -36,6 +36,7 @@
         'views/cuenta_views.xml',
         'views/transaccion_views.xml',
         'views/categoria_views.xml',
+        'views/activo_views.xml',
         'views/presupuesto_views.xml',
         'views/meta_financiera_views.xml',
         'views/menu.xml',
