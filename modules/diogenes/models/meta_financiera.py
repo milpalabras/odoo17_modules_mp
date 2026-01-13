@@ -8,6 +8,7 @@ class DiogenesMetaFinanciera(models.Model):
     _description = 'Meta Financiera'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'fecha_limite asc'
+    _rec_name = 'nombre'
 
     nombre = fields.Char(
         string='Nombre',
