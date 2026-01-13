@@ -95,6 +95,18 @@ class DiogenesCuenta(models.Model):
         string='Transacciones de Destino'
     )
     
+    transaccion_origen_count = fields.Integer(
+        string='Total Salidas',
+        compute='_compute_transaccion_count',
+        store=False
+    )
+    
+    transaccion_destino_count = fields.Integer(
+        string='Total Entradas',
+        compute='_compute_transaccion_count',
+        store=False
+    )
+    
     transaccion_count = fields.Integer(
         string='Número de Transacciones',
         compute='_compute_transaccion_count'
@@ -104,6 +116,13 @@ class DiogenesCuenta(models.Model):
         ('nombre_user_unique', 'unique(nombre, user_id)', 
          'Ya tienes una cuenta con este nombre'),
     ]
+    
+    @api.depends('transaccion_origen_ids', 'transaccion_destino_ids')
+    def _compute_transaccion_count(self):
+        for record in self:
+            record.transaccion_origen_count = len(record.transaccion_origen_ids)
+            record.transaccion_destino_count = len(record.transaccion_destino_ids)
+            record.transaccion_count = record.transaccion_origen_count + record.transaccion_destino_count
     
     @api.depends('saldo_inicial', 'transaccion_origen_ids', 'transaccion_destino_ids',
                  'transaccion_origen_ids.monto', 'transaccion_origen_ids.state', 'transaccion_origen_ids.tipo',
