@@ -120,9 +120,14 @@ class DiogenesCuenta(models.Model):
     @api.depends('transaccion_origen_ids', 'transaccion_destino_ids')
     def _compute_transaccion_count(self):
         for record in self:
-            record.transaccion_origen_count = len(record.transaccion_origen_ids)
-            record.transaccion_destino_count = len(record.transaccion_destino_ids)
-            record.transaccion_count = record.transaccion_origen_count + record.transaccion_destino_count
+            try:
+                record.transaccion_origen_count = len(record.transaccion_origen_ids) if record.transaccion_origen_ids else 0
+                record.transaccion_destino_count = len(record.transaccion_destino_ids) if record.transaccion_destino_ids else 0
+                record.transaccion_count = record.transaccion_origen_count + record.transaccion_destino_count
+            except Exception:
+                record.transaccion_origen_count = 0
+                record.transaccion_destino_count = 0
+                record.transaccion_count = 0
     
     @api.depends('saldo_inicial', 'transaccion_origen_ids', 'transaccion_destino_ids',
                  'transaccion_origen_ids.monto', 'transaccion_origen_ids.state', 'transaccion_origen_ids.tipo',
