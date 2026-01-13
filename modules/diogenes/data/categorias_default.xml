@@ -39,6 +39,7 @@
             <field name="nombre">Alimentación</field>
             <field name="codigo">GAS_ALIMENTACION</field>
             <field name="tipo">gasto</field>
+            <field name="tipo_gasto">necesario</field>
             <field name="color">1</field>
             <field name="descripcion">Gastos en comida y bebidas</field>
         </record>
@@ -47,6 +48,7 @@
             <field name="nombre">Transporte</field>
             <field name="codigo">GAS_TRANSPORTE</field>
             <field name="tipo">gasto</field>
+            <field name="tipo_gasto">necesario</field>
             <field name="color">4</field>
             <field name="descripcion">Gastos en transporte y combustible</field>
         </record>
@@ -55,6 +57,7 @@
             <field name="nombre">Vivienda</field>
             <field name="codigo">GAS_VIVIENDA</field>
             <field name="tipo">gasto</field>
+            <field name="tipo_gasto">fijo</field>
             <field name="color">2</field>
             <field name="descripcion">Renta, hipoteca y mantenimiento del hogar</field>
         </record>
@@ -63,6 +66,7 @@
             <field name="nombre">Servicios</field>
             <field name="codigo">GAS_SERVICIOS</field>
             <field name="tipo">gasto</field>
+            <field name="tipo_gasto">fijo</field>
             <field name="color">6</field>
             <field name="descripcion">Luz, agua, internet, teléfono, etc.</field>
         </record>
@@ -71,6 +75,7 @@
             <field name="nombre">Salud</field>
             <field name="codigo">GAS_SALUD</field>
             <field name="tipo">gasto</field>
+            <field name="tipo_gasto">necesario</field>
             <field name="color">8</field>
             <field name="descripcion">Gastos médicos y medicamentos</field>
         </record>
@@ -79,6 +84,7 @@
             <field name="nombre">Entretenimiento</field>
             <field name="codigo">GAS_ENTRETENIMIENTO</field>
             <field name="tipo">gasto</field>
+            <field name="tipo_gasto">prescindible</field>
             <field name="color">9</field>
             <field name="descripcion">Ocio, hobbies y entretenimiento</field>
         </record>
@@ -87,6 +93,7 @@
             <field name="nombre">Educación</field>
             <field name="codigo">GAS_EDUCACION</field>
             <field name="tipo">gasto</field>
+            <field name="tipo_gasto">necesario</field>
             <field name="color">11</field>
             <field name="descripcion">Cursos, libros y material educativo</field>
         </record>
@@ -95,6 +102,7 @@
             <field name="nombre">Otros Gastos</field>
             <field name="codigo">GAS_OTROS</field>
             <field name="tipo">gasto</field>
+            <field name="tipo_gasto">prescindible</field>
             <field name="color">0</field>
             <field name="descripcion">Otros gastos no categorizados</field>
         </record>

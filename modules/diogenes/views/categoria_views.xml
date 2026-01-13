@@ -9,6 +9,7 @@
                 <field name="nombre"/>
                 <field name="codigo"/>
                 <field name="tipo" widget="badge"/>
+                <field name="tipo_gasto"/>
                 <field name="transaccion_count"/>
                 <field name="active"/>
             </tree>
@@ -41,6 +42,9 @@
                         <group>
                             <field name="codigo"/>
                             <field name="tipo" widget="radio"/>
+                            <field name="tipo_gasto" 
+                                   invisible="tipo != 'gasto'"
+                                   required="tipo == 'gasto'"/>
                         </group>
                         <group>
                             <field name="color" widget="color"/>

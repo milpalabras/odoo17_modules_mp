@@ -32,6 +32,8 @@
     'data': [
         'security/ir.model.access.csv',
         'data/categorias_default.xml',
+        'data/cuentas_default.xml',
+        'views/cuenta_views.xml',
         'views/transaccion_views.xml',
         'views/categoria_views.xml',
         'views/presupuesto_views.xml',

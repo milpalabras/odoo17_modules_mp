@@ -3,3 +3,5 @@ access_diogenes_categoria_user,diogenes.categoria.user,model_diogenes_categoria,
 access_diogenes_transaccion_user,diogenes.transaccion.user,model_diogenes_transaccion,base.group_user,1,1,1,1
 access_diogenes_presupuesto_user,diogenes.presupuesto.user,model_diogenes_presupuesto,base.group_user,1,1,1,1
 access_diogenes_meta_financiera_user,diogenes.meta.financiera.user,model_diogenes_meta_financiera,base.group_user,1,1,1,1
+access_diogenes_cuenta_user,diogenes.cuenta.user,model_diogenes_cuenta,base.group_user,1,1,1,1
+

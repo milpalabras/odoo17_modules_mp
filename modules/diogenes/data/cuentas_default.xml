@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Cuenta de Efectivo -->
+        <record id="cuenta_efectivo" model="diogenes.cuenta">
+            <field name="nombre">Efectivo</field>
+            <field name="tipo_cuenta">efectivo</field>
+            <field name="institucion">N/A</field>
+            <field name="numero_cuenta">CASH-001</field>
+            <field name="currency_id" ref="base.MXN"/>
+            <field name="saldo_inicial">0.0</field>
+            <field name="color">5</field>
+            <field name="descripcion">Dinero en efectivo físico</field>
+        </record>
+        
+        <!-- Cuenta Bancaria de Ejemplo -->
+        <record id="cuenta_banco_principal" model="diogenes.cuenta">
+            <field name="nombre">Cuenta de Cheques Principal</field>
+            <field name="tipo_cuenta">banco</field>
+            <field name="institucion">Banco Ejemplo</field>
+            <field name="numero_cuenta">****1234</field>
+            <field name="currency_id" ref="base.MXN"/>
+            <field name="saldo_inicial">0.0</field>
+            <field name="color">3</field>
+            <field name="descripcion">Cuenta bancaria principal para operaciones diarias</field>
+        </record>
+        
+        <!-- Cuenta de Ahorro -->
+        <record id="cuenta_ahorro" model="diogenes.cuenta">
+            <field name="nombre">Cuenta de Ahorro</field>
+            <field name="tipo_cuenta">ahorro</field>
+            <field name="institucion">Banco Ejemplo</field>
+            <field name="numero_cuenta">****5678</field>
+            <field name="currency_id" ref="base.MXN"/>
+            <field name="saldo_inicial">0.0</field>
+            <field name="color">9</field>
+            <field name="descripcion">Cuenta de ahorro con intereses</field>
+        </record>
+        
+        <!-- Tarjeta de Crédito -->
+        <record id="cuenta_credito" model="diogenes.cuenta">
+            <field name="nombre">Tarjeta de Crédito Principal</field>
+            <field name="tipo_cuenta">credito</field>
+            <field name="institucion">Banco Ejemplo</field>
+            <field name="numero_cuenta">****9012</field>
+            <field name="currency_id" ref="base.MXN"/>
+            <field name="saldo_inicial">0.0</field>
+            <field name="color">1</field>
+            <field name="descripcion">Tarjeta de crédito para compras y emergencias</field>
+        </record>
+        
+    </data>
+</odoo>

@@ -103,6 +103,13 @@ class DiogenesMetaFinanciera(models.Model):
         ('urgent', 'Urgente')
     ], string='Prioridad', default='medium')
     
+    cuenta_ids = fields.Many2many(
+        'diogenes.cuenta',
+        string='Cuentas Asignadas',
+        tracking=True,
+        help='Cuentas donde se asignará o acumulará el monto para esta meta'
+    )
+    
     @api.depends('monto_objetivo', 'monto_actual')
     def _compute_monto_faltante(self):
         for record in self:

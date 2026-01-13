@@ -27,6 +27,16 @@ class DiogenesCategoria(models.Model):
         ('ambos', 'Ambos')
     ], string='Tipo', default='ambos', required=True)
     
+    tipo_gasto = fields.Selection([
+        ('fijo', 'Gasto Fijo'),
+        ('necesario', 'Gasto Necesario'),
+        ('prescindible', 'Gasto Prescindible'),
+        ('na', 'No Aplica')
+    ], string='Clasificación de Gasto', default='na',
+       help='Fijo: gastos recurrentes (renta, servicios). '
+            'Necesario: esenciales variables (comida, transporte). '
+            'Prescindible: opcionales (entretenimiento, lujos)')
+    
     color = fields.Integer(
         string='Color',
         help='Color para identificar la categoría en gráficos'

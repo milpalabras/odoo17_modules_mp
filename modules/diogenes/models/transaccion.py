@@ -19,8 +19,20 @@ class DiogenesTransaccion(models.Model):
     
     tipo = fields.Selection([
         ('ingreso', 'Ingreso'),
-        ('gasto', 'Gasto')
+        ('gasto', 'Gasto'),
+        ('transferencia', 'Transferencia')
     ], string='Tipo', required=True, default='gasto', tracking=True)
+    
+    metodo_pago = fields.Selection([
+        ('efectivo', 'Efectivo'),
+        ('debito', 'Tarjeta de Débito'),
+        ('credito', 'Tarjeta de Crédito'),
+        ('debito_auto', 'Débito Automático'),
+        ('transferencia', 'Transferencia Bancaria'),
+        ('digital', 'Billetera Digital'),
+        ('cheque', 'Cheque'),
+        ('otro', 'Otro')
+    ], string='Método de Pago', tracking=True)
     
     currency_id = fields.Many2one(
         'res.currency',
@@ -47,8 +59,21 @@ class DiogenesTransaccion(models.Model):
     categoria_id = fields.Many2one(
         'diogenes.categoria',
         string='Categoría',
-        required=True,
         tracking=True
+    )
+    
+    cuenta_origen_id = fields.Many2one(
+        'diogenes.cuenta',
+        string='Cuenta Origen',
+        tracking=True,
+        help='Cuenta desde donde sale el dinero'
+    )
+    
+    cuenta_destino_id = fields.Many2one(
+        'diogenes.cuenta',
+        string='Cuenta Destino',
+        tracking=True,
+        help='Cuenta hacia donde va el dinero'
     )
     
     notas = fields.Text(
@@ -73,6 +98,28 @@ class DiogenesTransaccion(models.Model):
         for record in self:
             if record.monto <= 0:
                 raise ValidationError('El monto debe ser mayor a cero')
+    
+    @api.constrains('tipo', 'categoria_id', 'cuenta_origen_id', 'cuenta_destino_id')
+    def _check_campos_requeridos(self):
+        for record in self:
+            # Para transferencias se requieren ambas cuentas
+            if record.tipo == 'transferencia':
+                if not record.cuenta_origen_id or not record.cuenta_destino_id:
+                    raise ValidationError('Las transferencias requieren cuenta origen y cuenta destino')
+                if record.cuenta_origen_id == record.cuenta_destino_id:
+                    raise ValidationError('La cuenta origen y destino deben ser diferentes')
+            
+            # Para gastos e ingresos se requiere categoría
+            if record.tipo in ['gasto', 'ingreso'] and not record.categoria_id:
+                raise ValidationError('Los ingresos y gastos requieren una categoría')
+            
+            # Para gastos se requiere cuenta origen
+            if record.tipo == 'gasto' and not record.cuenta_origen_id:
+                raise ValidationError('Los gastos requieren una cuenta origen')
+            
+            # Para ingresos se requiere cuenta destino
+            if record.tipo == 'ingreso' and not record.cuenta_destino_id:
+                raise ValidationError('Los ingresos requieren una cuenta destino')
     
     def action_confirm(self):
         """Confirmar la transacción"""

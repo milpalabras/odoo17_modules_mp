@@ -24,6 +24,13 @@ class DiogenesPresupuesto(models.Model):
         tracking=True
     )
     
+    cuenta_id = fields.Many2one(
+        'diogenes.cuenta',
+        string='Cuenta',
+        tracking=True,
+        help='Cuenta desde donde se asigna el presupuesto'
+    )
+    
     currency_id = fields.Many2one(
         'res.currency',
         string='Moneda',
@@ -88,18 +95,24 @@ class DiogenesPresupuesto(models.Model):
         string='Notas'
     )
     
-    @api.depends('categoria_id', 'fecha_inicio', 'fecha_fin')
+    @api.depends('categoria_id', 'fecha_inicio', 'fecha_fin', 'cuenta_id')
     def _compute_monto_gastado(self):
         for record in self:
             if record.categoria_id and record.fecha_inicio and record.fecha_fin:
-                transacciones = self.env['diogenes.transaccion'].search([
+                domain = [
                     ('categoria_id', '=', record.categoria_id.id),
                     ('tipo', '=', 'gasto'),
                     ('state', '=', 'confirmed'),
                     ('fecha', '>=', record.fecha_inicio),
                     ('fecha', '<=', record.fecha_fin),
                     ('user_id', '=', record.user_id.id)
-                ])
+                ]
+                
+                # Filtrar por cuenta si está definida
+                if record.cuenta_id:
+                    domain.append(('cuenta_origen_id', '=', record.cuenta_id.id))
+                
+                transacciones = self.env['diogenes.transaccion'].search(domain)
                 record.monto_gastado = sum(transacciones.mapped('monto'))
             else:
                 record.monto_gastado = 0.0
