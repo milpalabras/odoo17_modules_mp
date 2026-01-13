@@ -53,14 +53,6 @@
                     
                     <notebook>
                         <page string="Transacciones">
-                            <group>
-                                <group>
-                                    <field name="transaccion_origen_count" readonly="1"/>
-                                </group>
-                                <group>
-                                    <field name="transaccion_destino_count" readonly="1"/>
-                                </group>
-                            </group>
                             <separator string="Salidas de dinero"/>
                             <field name="transaccion_origen_ids" nolabel="1">
                                 <tree>
