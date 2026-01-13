@@ -42,7 +42,7 @@
                             <field name="currency_id" options="{'no_create': True}"/>
                             <field name="saldo_inicial" widget="monetary"/>
                             <field name="saldo_actual" widget="monetary" readonly="1"/>
-                            <field name="color" widget="color"/>
+                            <field name="color"/>
                             <field name="active"/>
                         </group>
                     </group>
