@@ -183,12 +183,5 @@
             </p>
         </field>
     </record>
-    
-    <!-- Menú de Cuentas -->
-    <menuitem id="menu_diogenes_cuenta"
-              name="Cuentas"
-              parent="menu_diogenes_main"
-              action="action_diogenes_cuenta"
-              sequence="15"/>
               
 </odoo>

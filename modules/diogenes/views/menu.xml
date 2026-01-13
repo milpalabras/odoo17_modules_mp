@@ -12,6 +12,12 @@
               parent="menu_diogenes_root"
               sequence="10"/>
 
+    <menuitem id="menu_diogenes_cuentas"
+              name="Cuentas"
+              parent="menu_diogenes_finanzas"
+              action="action_diogenes_cuenta"
+              sequence="5"/>
+
     <menuitem id="menu_diogenes_transacciones"
               name="Transacciones"
               parent="menu_diogenes_finanzas"
