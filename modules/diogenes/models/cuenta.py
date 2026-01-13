@@ -57,9 +57,9 @@ class DiogenesCuenta(models.Model):
         help='Saldo calculado basado en transacciones'
     )
     
-    color = fields.Integer(
+    color = fields.Char(
         string='Color',
-        help='Color para identificar la cuenta'
+        help='Color para identificar la cuenta en formato hexadecimal'
     )
     
     icono = fields.Char(

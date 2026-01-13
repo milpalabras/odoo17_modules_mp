@@ -10,7 +10,7 @@
             <field name="numero_cuenta">CASH-001</field>
             <field name="currency_id" ref="base.MXN"/>
             <field name="saldo_inicial">0.0</field>
-            <field name="color">5</field>
+            <field name="color">#4CAF50</field>
             <field name="descripcion">Dinero en efectivo físico</field>
         </record>
         
@@ -22,7 +22,7 @@
             <field name="numero_cuenta">****1234</field>
             <field name="currency_id" ref="base.MXN"/>
             <field name="saldo_inicial">0.0</field>
-            <field name="color">3</field>
+            <field name="color">#2196F3</field>
             <field name="descripcion">Cuenta bancaria principal para operaciones diarias</field>
         </record>
         
@@ -34,7 +34,7 @@
             <field name="numero_cuenta">****5678</field>
             <field name="currency_id" ref="base.MXN"/>
             <field name="saldo_inicial">0.0</field>
-            <field name="color">9</field>
+            <field name="color">#9C27B0</field>
             <field name="descripcion">Cuenta de ahorro con intereses</field>
         </record>
         
@@ -46,7 +46,7 @@
             <field name="numero_cuenta">****9012</field>
             <field name="currency_id" ref="base.MXN"/>
             <field name="saldo_inicial">0.0</field>
-            <field name="color">1</field>
+            <field name="color">#F44336</field>
             <field name="descripcion">Tarjeta de crédito para compras y emergencias</field>
         </record>
         
