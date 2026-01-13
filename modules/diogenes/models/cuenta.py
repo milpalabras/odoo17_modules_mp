@@ -120,6 +120,13 @@ class DiogenesCuenta(models.Model):
     @api.depends('transaccion_origen_ids', 'transaccion_destino_ids')
     def _compute_transaccion_count(self):
         for record in self:
+            # Para registros nuevos sin ID, los contadores son 0
+            if not record.id:
+                record.transaccion_origen_count = 0
+                record.transaccion_destino_count = 0
+                record.transaccion_count = 0
+                continue
+                
             try:
                 record.transaccion_origen_count = len(record.transaccion_origen_ids) if record.transaccion_origen_ids else 0
                 record.transaccion_destino_count = len(record.transaccion_destino_ids) if record.transaccion_destino_ids else 0
