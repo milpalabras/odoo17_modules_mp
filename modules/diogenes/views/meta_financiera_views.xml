@@ -51,9 +51,10 @@
                         <group>
                             <field name="tipo"/>
                             <field name="cuenta_ids" widget="many2many_tags"/>
+                            <field name="activo_ids" widget="many2many_tags"/>
                             <field name="currency_id"/>
                             <field name="monto_objetivo"/>
-                            <field name="monto_actual"/>
+                            <field name="monto_actual" readonly="1"/>
                             <field name="priority" widget="priority"/>
                         </group>
                         <group>
@@ -64,8 +65,12 @@
                     </group>
                     <group>
                         <group string="Progreso">
-                            <field name="monto_faltante"/>
+                            <field name="monto_faltante" readonly="1"/>
                             <field name="porcentaje_completado" widget="progressbar"/>
+                        </group>
+                        <group string="Con Activos Asignados">
+                            <field name="valor_total_activos" readonly="1"/>
+                            <field name="monto_faltante_con_activos" readonly="1"/>
                         </group>
                     </group>
                     <notebook>

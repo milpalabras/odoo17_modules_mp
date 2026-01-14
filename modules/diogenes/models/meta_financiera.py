@@ -111,6 +111,30 @@ class DiogenesMetaFinanciera(models.Model):
         help='Cuentas donde se asignará o acumulará el monto para esta meta'
     )
     
+    activo_ids = fields.Many2many(
+        'diogenes.activo',
+        string='Activos Asignados',
+        tracking=True,
+        help='Activos que se podrían vender para alcanzar esta meta',
+        domain=[('puede_venderse', '=', True)]
+    )
+    
+    valor_total_activos = fields.Monetary(
+        string='Valor Total de Activos',
+        compute='_compute_valor_total_activos',
+        store=True,
+        currency_field='currency_id',
+        help='Suma del valor estimado de los activos asignados'
+    )
+    
+    monto_faltante_con_activos = fields.Monetary(
+        string='Monto Faltante (con activos)',
+        compute='_compute_monto_faltante_con_activos',
+        store=True,
+        currency_field='currency_id',
+        help='Monto faltante considerando la venta de activos asignados'
+    )
+    
     @api.depends('cuenta_ids', 'cuenta_ids.saldo_actual')
     def _compute_monto_actual(self):
         for record in self:
@@ -123,6 +147,19 @@ class DiogenesMetaFinanciera(models.Model):
     def _compute_monto_faltante(self):
         for record in self:
             record.monto_faltante = record.monto_objetivo - record.monto_actual
+    
+    @api.depends('activo_ids', 'activo_ids.valor_estimado')
+    def _compute_valor_total_activos(self):
+        for record in self:
+            if record.activo_ids:
+                record.valor_total_activos = sum(record.activo_ids.mapped('valor_estimado'))
+            else:
+                record.valor_total_activos = 0.0
+    
+    @api.depends('monto_faltante', 'valor_total_activos')
+    def _compute_monto_faltante_con_activos(self):
+        for record in self:
+            record.monto_faltante_con_activos = record.monto_faltante - record.valor_total_activos
     
     @api.depends('monto_objetivo', 'monto_actual')
     def _compute_porcentaje_completado(self):
