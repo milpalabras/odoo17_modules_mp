@@ -48,9 +48,9 @@ class DiogenesMetaFinanciera(models.Model):
     monto_actual = fields.Monetary(
         string='Monto Actual',
         currency_field='currency_id',
-        default=0.0,
-        tracking=True,
-        help='Monto acumulado hasta el momento'
+        compute='_compute_monto_actual',
+        store=True,
+        help='Suma de saldos actuales de las cuentas asignadas'
     )
     
     monto_faltante = fields.Monetary(
@@ -110,6 +110,14 @@ class DiogenesMetaFinanciera(models.Model):
         tracking=True,
         help='Cuentas donde se asignará o acumulará el monto para esta meta'
     )
+    
+    @api.depends('cuenta_ids', 'cuenta_ids.saldo_actual')
+    def _compute_monto_actual(self):
+        for record in self:
+            if record.cuenta_ids:
+                record.monto_actual = sum(record.cuenta_ids.mapped('saldo_actual'))
+            else:
+                record.monto_actual = 0.0
     
     @api.depends('monto_objetivo', 'monto_actual')
     def _compute_monto_faltante(self):
